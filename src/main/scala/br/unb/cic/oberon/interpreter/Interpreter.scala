@@ -180,9 +180,6 @@ class Interpreter extends OberonVisitorAdapter {
       case ProcedureCallStmt(name, args) =>
         callProcedure(name, args)
         env = env.pop()
-      case TestCallStmt(name) =>
-        callTest(name)
-        env = env.pop()
     }
   }
 
@@ -253,10 +250,6 @@ class Interpreter extends OberonVisitorAdapter {
   }
 
   def returnProcedure() = {
-    env = env.pop()
-  }
-
-  def returnTest() = {
     env = env.pop()
   }
 

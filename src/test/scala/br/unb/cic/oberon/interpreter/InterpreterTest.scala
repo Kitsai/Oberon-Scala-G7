@@ -10,8 +10,10 @@ import org.scalatest.funsuite.AnyFunSuite
 class InterpreterTest extends AnyFunSuite with Oberon2ScalaParser {
 
   val interpreter = new Interpreter()
+  val testInterpreter = new TestInterpreter()
 
   interpreter.setTestEnvironment()
+  testInterpreter.setTestEnvironment()
 
   test("Testing interpreter on interpreter_stmt01 program") {
     val module = parseResource("stmts/interpreter_stmt01.oberon")
@@ -754,7 +756,7 @@ class InterpreterTest extends AnyFunSuite with Oberon2ScalaParser {
     val coreVisitor = new CoreVisitor()
     val coreModule = coreVisitor.transformModule(module)
 
-    assert(coreModule.accept(interpreter) == ())
+    assert(coreModule.accept(testInterpreter) == ())
   }
 
 
@@ -764,7 +766,7 @@ class InterpreterTest extends AnyFunSuite with Oberon2ScalaParser {
     val coreVisitor = new CoreVisitor()
     val coreModule = coreVisitor.transformModule(module)
 
-    assert(coreModule.accept(interpreter) == ())
+    assert(coreModule.accept(testInterpreter) == ())
 
   }
   
@@ -774,7 +776,16 @@ class InterpreterTest extends AnyFunSuite with Oberon2ScalaParser {
     val coreVisitor = new CoreVisitor()
     val coreModule = coreVisitor.transformModule(module)
 
-    coreModule.accept(interpreter)
+    coreModule.accept(testInterpreter)
+  }
+
+  test("Testing Test parser3"){
+    val module = parseResource("procedures/procedureTest07.oberon")
+
+    val coreVisitor = new CoreVisitor()
+    val coreModule = coreVisitor.transformModule(module)
+
+    assert(coreModule.accept(testInterpreter) == ())
   }
 
   test(testName = "Testing boolean32"){
